@@ -1,6 +1,21 @@
 from typing import List
 from exceptions import InvalidMoveException
 
+"""
+    TODO List for Adrian
+    1. Finish the __init__ function
+        - As a caveat, figure out what each of the variables mean (i.e what does a 1 mean on the board, what does a 2 mean, ...etc.)
+    2. Finish the reset_board function
+        - This should come quite easily as a result of the __init__ function
+    3. Finish is_game_over function
+    4. Finish _is_legal_move function
+        - Hint! Identify what type of piece is starting out (King, regular piece, empty square, ...etc.)
+    5. Finish the make_move function
+
+    NEXT: Start on graphical implementation!
+
+"""
+
 class CheckersLogic:
 
     def __init__(self) -> None:
