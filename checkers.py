@@ -1,4 +1,4 @@
-from pickle import FALSE
+
 from typing import List
 from exceptions import InvalidMoveException
 from enum import Enum
@@ -36,6 +36,10 @@ class Piece(Enum):
 class Turn(Enum):
     RED_TURN = False
     BLACK_TURN = True
+class Result(Enum):
+    BLACK = 2
+    RED = 1
+    ONGOING = 0
 class CheckersLogic:
 
     def __init__(self) -> None:
@@ -49,26 +53,7 @@ class CheckersLogic:
                                          [Piece.RED_PAWN, Piece.BLOCKED_SQUARE, Piece.RED_PAWN, Piece.BLOCKED_SQUARE, Piece.RED_PAWN, Piece.BLOCKED_SQUARE, Piece.RED_PAWN, Piece.BLOCKED_SQUARE]] # TODO Adrian
         self.turn: Turn = Turn.RED_TURN # TODO Adrian
         
-    def _is_legal_move(self, turn: bool, s_row: int, s_col: int, e_row: int, e_col: int) -> bool:
-        """
-        Checks if a move is legal based on the given parameters.
-
-        Args:
-            turn (bool): Indicates the player's turn. True for player 1, False for player 2.
-            s_row (int): The starting row of the piece.
-            s_col (int): The starting column of the piece.
-            e_row (int): The ending row of the move.
-            e_col (int): The ending column of the move.
-
-        Returns:
-            bool: True if the move is legal, False otherwise.
-
-        Raises:
-            ValueError: If any of the input parameters are out of bounds or invalid.
-
-        """
-        # TODO Adrian
-        pass
+    
     
     def make_move(self, s_row: int, s_col: int, e_row: int, e_col: int) -> None:
         """
@@ -89,6 +74,16 @@ class CheckersLogic:
 
 
         """
+        """        
+        1. Can only jump to adjacent diagonal squares
+        2. Pawns can only move forward
+        3. Kings can move backward and forward
+        4. Have to jump to a free square
+        5. If there is an opponent pawn occupying one of the squares you can jump to AND the square diagonally after the opponent's pawn is a free_square, then turn the opponent's pawn into a free square
+        6. If a pawn reaches their opposite last row, then switch PAWN to KING
+        """
+        
+
         # TODO Adrian
         pass
 
@@ -114,7 +109,7 @@ class CheckersLogic:
         self.turn: Turn = Turn.RED_TURN # TODO Adrian
         # TODO Adrian
         pass
-
+    
     def is_game_over(self) -> int:
         """
         Checks if the game is over and returns the result.
@@ -122,12 +117,38 @@ class CheckersLogic:
         Returns:
             int: Result of the game. 
                 0: Game is still ongoing.
-                1: Player 1 (white) wins.
+                1: Player 1 (red) wins.
                 2: Player 2 (black) wins.
+            
 
 
         """
-        for i in range(rows):
-            for j in range(col):
-        # TODO Adrian
-        pass
+
+        red_pawn_exists = False
+        red_king_exists = False
+        
+        for row in range(len(self.board)):
+            for col in range(len(self.board[row])):
+                if Piece.RED_PAWN == self.board[row][col]:
+                    red_pawn_exists = True
+                elif Piece.RED_KING== self.board[row][col]:
+                    red_king_exists = True
+        
+        if red_pawn_exists == False and red_king_exists == False:
+            return Result.BLACK
+        
+        black_pawn_exists = False
+        black_king_exists = False
+        
+        for row in range(len(self.board)):
+            for col in range(len(self.board[row])):
+                if Piece.BLACK_PAWN == self.board[row][col]:
+                    black_pawn_exists = True
+                elif Piece.BLACK_KING== self.board[row][col]:
+                    black_king_exists = True
+                
+        
+        if black_pawn_exists == False and black_king_exists == False:
+            return Result.RED
+        
+        return Result.ONGOING
