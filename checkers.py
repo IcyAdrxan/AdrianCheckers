@@ -1,5 +1,7 @@
+from pickle import FALSE
 from typing import List
 from exceptions import InvalidMoveException
+from enum import Enum
 
 """
     TODO List for Adrian
@@ -16,11 +18,36 @@ from exceptions import InvalidMoveException
 
 """
 
+"""
+    -1 - Blocked Square
+    0 - Free Square
+    1 - Red Pawn
+    2 - Black Pawn
+    3 - Red King
+    4 - Black King
+"""
+class Piece(Enum):
+    BLOCKED_SQUARE = -1
+    FREE_SQUARE = 0
+    RED_PAWN = 1
+    BLACK_PAWN = 2
+    RED_KING = 3
+    BLACK_KING=4
+class Turn(Enum):
+    RED_TURN = False
+    BLACK_TURN = True
 class CheckersLogic:
 
     def __init__(self) -> None:
-        self.board: List[int] = [] # TODO Adrian
-        self.turn: bool = 0 # TODO Adrian
+        self.board: List[List[Piece]] = [[Piece.BLOCKED_SQUARE, Piece.BLACK_PAWN, Piece.BLOCKED_SQUARE, Piece.BLACK_PAWN, Piece.BLOCKED_SQUARE, Piece.BLACK_PAWN, Piece.BLOCKED_SQUARE, Piece.BLACK_PAWN],
+                                         [Piece.BLACK_PAWN, Piece.BLOCKED_SQUARE, Piece.BLACK_PAWN, Piece.BLOCKED_SQUARE, Piece.BLACK_PAWN, Piece.BLOCKED_SQUARE, Piece.BLACK_PAWN, Piece.BLOCKED_SQUARE],
+                                         [Piece.BLOCKED_SQUARE, Piece.BLACK_PAWN, Piece.BLOCKED_SQUARE, Piece.BLACK_PAWN, Piece.BLOCKED_SQUARE, Piece.BLACK_PAWN, Piece.BLOCKED_SQUARE, Piece.BLACK_PAWN],
+                                         [Piece.BLOCKED_SQUARE, Piece.FREE_SQUARE, Piece.BLOCKED_SQUARE, Piece.FREE_SQUARE, Piece.BLOCKED_SQUARE, Piece.FREE_SQUARE, Piece.BLOCKED_SQUARE, Piece.FREE_SQUARE],
+                                         [Piece.FREE_SQUARE, Piece.BLOCKED_SQUARE, Piece.FREE_SQUARE, Piece.BLOCKED_SQUARE, Piece.FREE_SQUARE, Piece.BLOCKED_SQUARE, Piece.FREE_SQUARE, Piece.BLOCKED_SQUARE],
+                                         [Piece.RED_PAWN, Piece.BLOCKED_SQUARE, Piece.RED_PAWN, Piece.BLOCKED_SQUARE, Piece.RED_PAWN, Piece.BLOCKED_SQUARE, Piece.RED_PAWN, Piece.BLOCKED_SQUARE],
+                                         [Piece.BLOCKED_SQUARE, Piece.RED_PAWN, Piece.BLOCKED_SQUARE, Piece.RED_PAWN, Piece.BLOCKED_SQUARE, Piece.RED_PAWN, Piece.BLOCKED_SQUARE, Piece.RED_PAWN],
+                                         [Piece.RED_PAWN, Piece.BLOCKED_SQUARE, Piece.RED_PAWN, Piece.BLOCKED_SQUARE, Piece.RED_PAWN, Piece.BLOCKED_SQUARE, Piece.RED_PAWN, Piece.BLOCKED_SQUARE]] # TODO Adrian
+        self.turn: Turn = Turn.RED_TURN # TODO Adrian
         
     def _is_legal_move(self, turn: bool, s_row: int, s_col: int, e_row: int, e_col: int) -> bool:
         """
@@ -76,21 +103,31 @@ class CheckersLogic:
             None
 
         """
-
+        self.board: List[List[Piece]] = [[Piece.BLOCKED_SQUARE, Piece.BLACK_PAWN, Piece.BLOCKED_SQUARE, Piece.BLACK_PAWN, Piece.BLOCKED_SQUARE, Piece.BLACK_PAWN, Piece.BLOCKED_SQUARE, Piece.BLACK_PAWN],
+                                         [Piece.BLACK_PAWN, Piece.BLOCKED_SQUARE, Piece.BLACK_PAWN, Piece.BLOCKED_SQUARE, Piece.BLACK_PAWN, Piece.BLOCKED_SQUARE, Piece.BLACK_PAWN, Piece.BLOCKED_SQUARE],
+                                         [Piece.BLOCKED_SQUARE, Piece.BLACK_PAWN, Piece.BLOCKED_SQUARE, Piece.BLACK_PAWN, Piece.BLOCKED_SQUARE, Piece.BLACK_PAWN, Piece.BLOCKED_SQUARE, Piece.BLACK_PAWN],
+                                         [Piece.FREE_SQUARE, Piece.BLOCKED_SQUARE, Piece.FREE_SQUARE, Piece.BLOCKED_SQUARE, Piece.FREE_SQUARE, Piece.BLOCKED_SQUARE, Piece.FREE_SQUARE, Piece.BLOCKED_SQUARE],
+                                         [Piece.BLOCKED_SQUARE, Piece.FREE_SQUARE, Piece.BLOCKED_SQUARE, Piece.FREE_SQUARE, Piece.BLOCKED_SQUARE, Piece.FREE_SQUARE, Piece.BLOCKED_SQUARE, Piece.FREE_SQUARE],
+                                         [Piece.RED_PAWN, Piece.BLOCKED_SQUARE, Piece.RED_PAWN, Piece.BLOCKED_SQUARE, Piece.RED_PAWN, Piece.BLOCKED_SQUARE, Piece.RED_PAWN, Piece.BLOCKED_SQUARE],
+                                         [Piece.BLOCKED_SQUARE, Piece.RED_PAWN, Piece.BLOCKED_SQUARE, Piece.RED_PAWN, Piece.BLOCKED_SQUARE, Piece.RED_PAWN, Piece.BLOCKED_SQUARE, Piece.RED_PAWN],
+                                         [Piece.RED_PAWN, Piece.BLOCKED_SQUARE, Piece.RED_PAWN, Piece.BLOCKED_SQUARE, Piece.RED_PAWN, Piece.BLOCKED_SQUARE, Piece.RED_PAWN, Piece.BLOCKED_SQUARE]] # TODO Adrian
+        self.turn: Turn = Turn.RED_TURN # TODO Adrian
         # TODO Adrian
         pass
 
     def is_game_over(self) -> int:
         """
         Checks if the game is over and returns the result.
-
+            
         Returns:
             int: Result of the game. 
                 0: Game is still ongoing.
                 1: Player 1 (white) wins.
                 2: Player 2 (black) wins.
-                3: Game ends in a draw.
+
 
         """
+        for i in range(rows):
+            for j in range(col):
         # TODO Adrian
         pass
